@@ -152,6 +152,48 @@ body::before {
             width: 100%;
         }
 
+        /* Mobile nav toggle (hidden on desktop) */
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(139, 156, 181, 0.5);
+            color: var(--text-primary);
+            border-radius: 999px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+            position: relative;
+        }
+
+        .nav-toggle span::before,
+        .nav-toggle span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: currentColor;
+        }
+
+        .nav-toggle span::before {
+            top: -5px;
+        }
+
+        .nav-toggle span::after {
+            top: 5px;
+        }
+
         @keyframes navPop {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
@@ -397,7 +439,7 @@ body::before {
         /* Portfolio Grid */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
         }
 
@@ -770,10 +812,34 @@ body::before {
         @media (max-width: 768px) {
             header {
                 padding: 1rem 5%;
+                align-items: center;
             }
 
-            nav ul {
-                gap: 1rem;
+            .nav-toggle {
+                display: inline-flex;
+            }
+
+            header nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                padding: 0 5%;
+                margin-top: 0.75rem;
+            }
+
+            header nav ul {
+                display: none;
+                flex-direction: column;
+                gap: 0.5rem;
+                background: rgba(15, 20, 25, 0.98);
+                border-radius: 16px;
+                padding: 0.85rem 1.25rem;
+                border: 1px solid rgba(139, 156, 181, 0.35);
+            }
+
+            body.nav-open header nav ul {
+                display: flex;
             }
 
             .hero h1 {
@@ -782,6 +848,10 @@ body::before {
 
             .about-content {
                 grid-template-columns: 1fr;
+            }
+
+            .about-visual {
+                height: 280px;
             }
 
             .portfolio-grid,
@@ -983,6 +1053,9 @@ body::before {
     <!-- Header -->
     <header>
         <a href="#top" class="logo">Tico Almeida Lee</a>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+        </button>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -1233,6 +1306,15 @@ body::before {
             requestAnimationFrame(tick);
         }
 
+        // Mobile nav toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const body = document.body;
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
         // Logo click - animated scroll to top with press
         document.querySelector('.logo').addEventListener('click', function(e) {
             e.preventDefault();
@@ -1260,6 +1342,11 @@ body::before {
                         target.classList.remove('section-fade-in');
                         target.removeEventListener('animationend', handler);
                     }, { once: true });
+                }
+                // Close mobile nav after selection
+                if (body.classList.contains('nav-open')) {
+                    body.classList.remove('nav-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         });
