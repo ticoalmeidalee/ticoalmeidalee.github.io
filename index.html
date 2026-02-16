@@ -118,40 +118,6 @@ body::before {
             color: var(--accent);
         }
 
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-            position: relative;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-primary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
         nav ul {
             display: flex;
             gap: 2rem;
@@ -806,82 +772,16 @@ body::before {
                 padding: 1rem 5%;
             }
 
-            /* Mobile Navigation */
-            .menu-toggle {
-                display: flex;
-            }
-
-            nav {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                max-width: 300px;
-                height: 100vh;
-                background: var(--bg-navy);
-                backdrop-filter: blur(20px);
-                border-left: 1px solid rgba(139, 156, 181, 0.2);
-                padding: 5rem 2rem 2rem;
-                transition: right 0.3s ease;
-                z-index: 1000;
-                overflow-y: auto;
-            }
-
-            nav.active {
-                right: 0;
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-            }
-
             nav ul {
-                flex-direction: column;
-                gap: 0;
-            }
-
-            nav ul li {
-                border-bottom: 1px solid rgba(139, 156, 181, 0.1);
-            }
-
-            nav a {
-                display: block;
-                padding: 1.25rem 0;
-                font-size: 1.1rem;
-                color: var(--text-primary);
-            }
-
-            nav a::after {
-                display: none;
-            }
-
-            /* Mobile overlay */
-            body.menu-open::before {
-                content: '';
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 999;
-                animation: fadeIn 0.3s ease;
-            }
-
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
+                gap: 1rem;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
+                font-size: 3rem;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .about-visual {
-                height: 300px;
             }
 
             .portfolio-grid,
@@ -891,11 +791,7 @@ body::before {
             }
 
             section {
-                padding: 4rem 5%;
-            }
-
-            .section-title {
-                font-size: 2rem;
+                padding: 5rem 5%;
             }
 
             .cta-buttons {
@@ -903,61 +799,43 @@ body::before {
                 align-items: stretch;
             }
 
+            @keyframes scheduleFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes scheduleGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(224, 124, 92, 0.3),
+            0 8px 32px rgba(224, 124, 92, 0.25),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(224, 124, 92, 0.5),
+            0 12px 48px rgba(224, 124, 92, 0.4),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+}
+
+@keyframes scheduleShine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 150%;
+    }
+}
             .schedule-fab {
                 right: 1rem;
                 bottom: 1rem;
-                padding: 0.75rem 1.25rem;
-                font-size: 0.85rem;
-            }
-
-            .schedule-panel {
-                padding: 2rem 1.5rem;
-                max-width: 90%;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-        }
-
-        /* Very small screens */
-        @media (max-width: 480px) {
-            header {
-                padding: 1rem 4%;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            section {
-                padding: 3rem 4%;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .btn {
-                padding: 0.875rem 1.5rem;
-                font-size: 0.95rem;
-            }
-
-            .schedule-fab {
-                right: 0.75rem;
-                bottom: 0.75rem;
-                padding: 0.65rem 1rem;
+                padding: 0.6rem 1rem;
                 font-size: 0.8rem;
-            }
-
-            .service-card,
-            .testimonial-card {
-                padding: 1.5rem;
             }
         }
 
@@ -1105,11 +983,6 @@ body::before {
     <!-- Header -->
     <header>
         <a href="#top" class="logo">Tico Almeida Lee</a>
-        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -1318,6 +1191,140 @@ body::before {
             <div class="contact-info">
                 <div class="contact-item">
                     <div class="contact-item-icon">📧</div>
+                    <p><strong>Email</strong><br><span class="selectable">ticoalmeidalee@gmail.com</span></p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">📞</div>
+                    <p><strong>Phone</strong><br><span class="selectable">604-300-1863</span></p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-icon">🎬</div>
+                    <p><strong>Portfolio</strong><br>Available upon request</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://ticoalmeidalee.github.io/" target="_blank" rel="noopener noreferrer">https://ticoalmeidalee.github.io/</a>
+        </div>
+        <p>&copy; 2025 Tico Almeida Lee. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Animated scroll to position
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+        function animateScrollTo(endY, duration = 800) {
+            const start = window.scrollY || window.pageYOffset;
+            const distance = endY - start;
+            const startTime = performance.now();
+            function tick(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = easeInOutCubic(progress);
+                window.scrollTo(0, start + distance * eased);
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        // Logo click - animated scroll to top with press
+        document.querySelector('.logo').addEventListener('click', function(e) {
+            e.preventDefault();
+            this.style.animation = 'none';
+            this.offsetHeight;
+            this.style.animation = 'logoPress 0.35s ease';
+            animateScrollTo(0);
+        });
+
+        // Nav links - scroll to section with pop + section fade-in
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                this.style.animation = 'none';
+                this.offsetHeight; // trigger reflow
+                this.style.animation = 'navPop 0.5s ease';
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ block: 'start' });
+                    target.classList.remove('section-fade-in');
+                    target.offsetHeight; // trigger reflow to replay animation
+                    target.classList.add('section-fade-in');
+                    target.addEventListener('animationend', function handler() {
+                        target.classList.remove('section-fade-in');
+                        target.removeEventListener('animationend', handler);
+                    }, { once: true });
+                }
+            });
+        });
+
+        // Schedule panel open/close
+        const scheduleOverlay = document.getElementById('scheduleOverlay');
+        document.querySelector('[data-open-schedule]').addEventListener('click', function() {
+            scheduleOverlay.classList.add('open');
+            scheduleOverlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        });
+        function closeSchedulePanel() {
+            scheduleOverlay.classList.remove('open');
+            scheduleOverlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+        scheduleOverlay.querySelector('.schedule-panel-close').addEventListener('click', closeSchedulePanel);
+        scheduleOverlay.addEventListener('click', function(e) {
+            if (e.target === scheduleOverlay) closeSchedulePanel();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && scheduleOverlay.classList.contains('open')) {
+                closeSchedulePanel();
+            }
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        
+        function checkReveal() {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal);
+        checkReveal(); // Check on page load
+
+        // Form submission (customize with your backend)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        
+        function updateActiveLink() {
+            const scrollPosition = window.scrollY + 200;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.style.color = '';
+                        if (link.getAttribute('href') === `#${sectionId}`) {
                             link.style.color = 'var(--accent)';
                         }
                     });
