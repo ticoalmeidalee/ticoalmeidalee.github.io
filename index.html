@@ -157,17 +157,21 @@ body::before {
         /* Mobile nav toggle (hidden on desktop) */
         .nav-toggle {
             display: none;
-            background: transparent;
-            border: 1px solid rgba(139, 156, 181, 0.5);
+            background: rgba(26, 35, 50, 0.35);
+            border: 1px solid rgba(139, 156, 181, 0.45);
             color: var(--text-primary);
             border-radius: 999px;
-            padding: 0.4rem 0.9rem;
+            padding: 0.55rem 0.8rem;
             font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 0.04em;
             cursor: pointer;
             align-items: center;
             gap: 0.4rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
         }
 
         .nav-toggle span {
@@ -176,6 +180,8 @@ body::before {
             height: 2px;
             background: currentColor;
             position: relative;
+            border-radius: 999px;
+            transition: background 0.18s ease;
         }
 
         .nav-toggle span::before,
@@ -186,6 +192,8 @@ body::before {
             width: 18px;
             height: 2px;
             background: currentColor;
+            border-radius: 999px;
+            transition: transform 0.18s ease, top 0.18s ease, opacity 0.18s ease;
         }
 
         .nav-toggle span::before {
@@ -194,6 +202,37 @@ body::before {
 
         .nav-toggle span::after {
             top: 5px;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(26, 35, 50, 0.55);
+            border-color: rgba(224, 124, 92, 0.55);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32);
+        }
+
+        .nav-toggle:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .nav-toggle:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(224, 124, 92, 0.35), 0 12px 30px rgba(0, 0, 0, 0.32);
+        }
+
+        /* When mobile nav is open, animate burger into an X */
+        body.nav-open .nav-toggle span {
+            background: transparent;
+        }
+
+        body.nav-open .nav-toggle span::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        body.nav-open .nav-toggle span::after {
+            top: 0;
+            transform: rotate(-45deg);
         }
 
         @keyframes navPop {
@@ -858,6 +897,17 @@ body::before {
                 align-items: center;
             }
 
+            /* Mobile: make "Digital Magic" highlight a true underline */
+            .hero .highlight::after {
+                bottom: 0.05em;
+                left: -0.12em;
+                right: -0.12em;
+                height: 0.22em;
+                border-radius: 999px;
+                transform: none;
+                background: rgba(224, 124, 92, 0.45);
+            }
+
             .nav-toggle {
                 display: inline-flex;
             }
@@ -872,17 +922,26 @@ body::before {
             }
 
             header nav ul {
-                display: none;
                 flex-direction: column;
                 gap: 0.5rem;
                 background: rgba(15, 20, 25, 0.98);
                 border-radius: 16px;
                 padding: 0.85rem 1.25rem;
                 border: 1px solid rgba(139, 156, 181, 0.35);
+                display: flex;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(-8px);
+                pointer-events: none;
+                transition: max-height 0.28s ease, opacity 0.18s ease, transform 0.18s ease;
             }
 
             body.nav-open header nav ul {
-                display: flex;
+                max-height: 320px;
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
             }
 
             .hero h1 {
