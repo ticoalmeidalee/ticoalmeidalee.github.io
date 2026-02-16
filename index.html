@@ -897,6 +897,10 @@ body::before {
                 align-items: center;
             }
 
+            .header-url {
+                display: none;
+            }
+
             /* Mobile: make "Digital Magic" highlight a true underline */
             .hero .highlight::after {
                 bottom: 0.05em;
@@ -1077,6 +1081,27 @@ body::before {
             top: 20px;
         }
 
+        /* Desktop header URL (Fraunces, subtle grey, centered) */
+        .header-url {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            color: var(--muted);
+            opacity: 0.55;
+            transition: opacity 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .header-url:hover {
+            opacity: 0.9;
+            color: var(--text-primary);
+        }
+
         /* Schedule floating trigger - Enhanced */
 @keyframes scheduleFloat {
     0%, 100% {
@@ -1192,6 +1217,7 @@ body::before {
     <!-- Header -->
     <header>
         <a href="#top" class="logo">Tico Almeida Lee</a>
+        <a class="header-url" href="https://ticoalmeidalee.github.io/" target="_blank" rel="noopener noreferrer">ticoalmeidalee.github.io</a>
         <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
             <span></span>
         </button>
