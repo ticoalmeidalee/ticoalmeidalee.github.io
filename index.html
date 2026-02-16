@@ -118,6 +118,38 @@ body::before {
             color: var(--accent);
         }
 
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
         nav ul {
             display: flex;
             gap: 2rem;
@@ -772,16 +804,82 @@ body::before {
                 padding: 1rem 5%;
             }
 
+            /* Mobile Navigation */
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--bg-navy);
+                backdrop-filter: blur(20px);
+                border-left: 1px solid rgba(139, 156, 181, 0.2);
+                padding: 5rem 2rem 2rem;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            nav.active {
+                right: 0;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
             nav ul {
-                gap: 1rem;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            nav ul li {
+                border-bottom: 1px solid rgba(139, 156, 181, 0.1);
+            }
+
+            nav a {
+                display: block;
+                padding: 1.25rem 0;
+                font-size: 1.1rem;
+                color: var(--text-primary);
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            /* Mobile overlay */
+            body.menu-open::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 999;
+                animation: fadeIn 0.3s ease;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
 
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-visual {
+                height: 300px;
             }
 
             .portfolio-grid,
@@ -791,7 +889,11 @@ body::before {
             }
 
             section {
-                padding: 5rem 5%;
+                padding: 4rem 5%;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
 
             .cta-buttons {
@@ -799,43 +901,61 @@ body::before {
                 align-items: stretch;
             }
 
-            @keyframes scheduleFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-@keyframes scheduleGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 20px rgba(224, 124, 92, 0.3),
-            0 8px 32px rgba(224, 124, 92, 0.25),
-            inset 0 1px 1px rgba(255, 255, 255, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 30px rgba(224, 124, 92, 0.5),
-            0 12px 48px rgba(224, 124, 92, 0.4),
-            inset 0 1px 1px rgba(255, 255, 255, 0.15);
-    }
-}
-
-@keyframes scheduleShine {
-    0% {
-        left: -100%;
-    }
-    50%, 100% {
-        left: 150%;
-    }
-}
             .schedule-fab {
                 right: 1rem;
                 bottom: 1rem;
-                padding: 0.6rem 1rem;
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
+            }
+
+            .schedule-panel {
+                padding: 2rem 1.5rem;
+                max-width: 90%;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem 4%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 4%;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .schedule-fab {
+                right: 0.75rem;
+                bottom: 0.75rem;
+                padding: 0.65rem 1rem;
                 font-size: 0.8rem;
+            }
+
+            .service-card,
+            .testimonial-card {
+                padding: 1.5rem;
             }
         }
 
@@ -983,6 +1103,11 @@ body::before {
     <!-- Header -->
     <header>
         <a href="#top" class="logo">Tico Almeida Lee</a>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -1191,7 +1316,7 @@ body::before {
             <div class="contact-info">
                 <div class="contact-item">
                     <div class="contact-item-icon">📧</div>
-                    <p><strong>Email</strong><br><span class="selectable">ticoalmeidalee@gmail.com</span></p>
+                    <p><strong>Email</strong><br><span class="selectable"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9adb0bab6b8b5b4bcb0bdb8b5bcbc99beb4b8b0b5f7bab6b4">[email&#160;protected]</a></span></p>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-icon">📞</div>
@@ -1214,7 +1339,7 @@ body::before {
         <p>&copy; 2025 Tico Almeida Lee. All rights reserved.</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Animated scroll to position
         function easeInOutCubic(t) {
             return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -1286,6 +1411,48 @@ body::before {
             }
         });
 
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        const navLinks = document.querySelectorAll('nav a');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            
+            const isOpen = nav.classList.contains('active');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+        }
+
+        function closeMenu() {
+            menuToggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && nav.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
         // Scroll reveal animation
         const reveals = document.querySelectorAll('.reveal');
         
@@ -1325,14 +1492,4 @@ body::before {
                     document.querySelectorAll('nav a').forEach(link => {
                         link.style.color = '';
                         if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.style.color = 'var(--accent)';
-                        }
-                    });
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveLink);
-    </script>
-</body>
-</html>
+              
