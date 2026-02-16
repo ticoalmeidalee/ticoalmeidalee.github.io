@@ -893,8 +893,16 @@ body::before {
                 grid-template-columns: 1fr;
             }
 
+            /* On mobile: show image first, then text ("bubbles") */
             .about-visual {
                 height: 280px;
+                margin-top: 1.5rem;
+                align-self: stretch;
+                order: 1;
+            }
+
+            .about-text {
+                order: 2;
             }
 
             .portfolio-grid {
