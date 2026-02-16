@@ -34,6 +34,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         :root {
             --bg-dark: #0F1419;
@@ -376,7 +378,7 @@ body::before {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-            align-items: center;
+            align-items: start;
         }
 
         .about-text h3 {
@@ -421,6 +423,8 @@ body::before {
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(139, 156, 181, 0.15);
+            align-self: center;
+            margin-top: -10rem;
         }
 
         .about-visual::before {
@@ -439,7 +443,7 @@ body::before {
         /* Portfolio Grid */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
@@ -732,12 +736,45 @@ body::before {
             resize: vertical;
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            color: #4CAF50;
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid rgba(244, 67, 54, 0.5);
+            color: #f44336;
+            display: block;
+        }
+
         .contact-info {
             display: flex;
             gap: 2rem;
             margin-top: 3rem;
             justify-content: center;
             flex-wrap: wrap;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            transform: translateX(-0.75rem);
         }
 
         .contact-item {
@@ -777,6 +814,12 @@ body::before {
             padding: 3rem 5%;
             text-align: center;
             border-top: 1px solid rgba(139, 156, 181, 0.1);
+        }
+
+        footer > * {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         footer p {
@@ -854,10 +897,17 @@ body::before {
                 height: 280px;
             }
 
-            .portfolio-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
             .services-grid,
             .testimonials-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                transform: none;
             }
 
             section {
@@ -1258,7 +1308,8 @@ body::before {
                     <label for="message">Message</label>
                     <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
             </form>
 
             <div class="contact-info">
@@ -1390,11 +1441,64 @@ body::before {
         window.addEventListener('scroll', checkReveal);
         checkReveal(); // Check on page load
 
-        // Form submission (customize with your backend)
+        // Initialize EmailJS
+        // SETUP INSTRUCTIONS:
+        // 1. Go to https://www.emailjs.com/ and create a free account
+        // 2. Create an Email Service (Gmail, Outlook, etc.) and connect your email
+        // 3. Create an Email Template with variables: {{from_name}}, {{from_email}}, {{message}}
+        // 4. Get your Public Key from Account > API Keys
+        // 5. Get your Service ID from Email Services
+        // 6. Get your Template ID from Email Templates
+        // 7. Replace the values below:
+        (function() {
+            emailjs.init("kh44LYRjxHpW9lUQf"); // Your EmailJS public key
+        })();
+
+        // Form submission with EmailJS
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            this.reset();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            const form = this;
+            
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formMessage.className = 'form-message';
+            formMessage.style.display = 'none';
+            
+            // Prepare email parameters
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                message: document.getElementById('message').value,
+                to_email: 'ticoalmeidalee@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_id7h0fg', 'template_orxcpvk', templateParams)
+                .then(function(response) {
+                    // Success
+                    submitBtn.textContent = 'Message Sent!';
+                    formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    form.reset();
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(function() {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+                    }, 3000);
+                }, function(error) {
+                    // Error
+                    submitBtn.textContent = 'Send Message';
+                    formMessage.textContent = 'Sorry, there was an error sending your message. Please try again or email me directly at ticoalmeidalee@gmail.com';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                    submitBtn.disabled = false;
+                });
         });
 
         // Active nav link on scroll
