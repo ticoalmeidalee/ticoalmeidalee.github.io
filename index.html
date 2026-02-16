@@ -964,6 +964,28 @@ body::before {
                 order: 2;
             }
 
+            /* Mobile: make skill tags a nicer grid (no awkward vertical stacking) */
+            .skills {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
+                margin-top: 1.25rem;
+            }
+
+            .skill-tag {
+                padding: 0.6rem 0.85rem;
+                text-align: center;
+                font-size: 0.95rem;
+                line-height: 1.15;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            /* A little intentional "scramble" for visual interest */
+            .skills .skill-tag:nth-child(3n) {
+                grid-column: 1 / -1;
+            }
+
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
