@@ -784,6 +784,38 @@
                 align-items: stretch;
             }
 
+            @keyframes scheduleFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes scheduleGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(224, 124, 92, 0.3),
+            0 8px 32px rgba(224, 124, 92, 0.25),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(224, 124, 92, 0.5),
+            0 12px 48px rgba(224, 124, 92, 0.4),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+}
+
+@keyframes scheduleShine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 150%;
+    }
+}
             .schedule-fab {
                 right: 1rem;
                 bottom: 1rem;
@@ -821,40 +853,101 @@
             top: 20px;
         }
 
-        /* Schedule floating trigger */
-        @keyframes schedulePulse {
-            0%, 100% {
-                box-shadow: 0 4px 20px rgba(224, 124, 92, 0.4);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 4px 28px rgba(224, 124, 92, 0.6);
-                transform: scale(1.03);
-            }
-        }
+        /* Schedule floating trigger - Enhanced */
+@keyframes scheduleFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes scheduleGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(224, 124, 92, 0.3),
+            0 8px 32px rgba(224, 124, 92, 0.25),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(224, 124, 92, 0.5),
+            0 12px 48px rgba(224, 124, 92, 0.4),
+            inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    }
+}
+
+@keyframes scheduleShine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 150%;
+    }
+}
         .schedule-fab {
             position: fixed;
-            right: 1.5rem;
-            bottom: 1.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 50px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 600;
-            white-space: nowrap;
-            z-index: 999;
-            animation: schedulePulse 2.5s ease-in-out infinite;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .schedule-fab:hover {
-            animation: none;
-            transform: scale(1.05);
-            box-shadow: 0 6px 28px rgba(224, 124, 92, 0.55);
-        }
+    right: 1.5rem;  /* Use the original value */
+    bottom: 1.5rem; /* Use the original value */
+    padding: .75rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #E07C5C 0%, #D66A4E 50%, #E07C5C 100%);
+    background-size: 200% 200%;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    z-index: 999;
+    position: fixed;
+    overflow: hidden;
+    animation: scheduleFloat 3s ease-in-out infinite, scheduleGlow 2s ease-in-out infinite;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(10px);
+}
+
+.schedule-fab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: scheduleShine 3s infinite;
+}
+
+.schedule-fab::after {
+    content: '';
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+    display: inline-block;
+    animation: none;
+}
+
+.schedule-fab:hover {
+    transform: translateY(-4px) scale(1.05);
+    background-position: 100% 50%;
+    box-shadow: 
+        0 0 40px rgba(224, 124, 92, 0.6),
+        0 16px 56px rgba(224, 124, 92, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    animation: none;
+}
+
+.schedule-fab:active {
+    transform: translateY(-2px) scale(1.02);
+}
     </style>
     <script type="application/ld+json">
     {
