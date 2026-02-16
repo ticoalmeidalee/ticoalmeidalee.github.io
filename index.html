@@ -8,26 +8,28 @@
     <meta name="keywords" content="Tico Almeida Lee, video editor, web developer, AI specialist, media arts, ThePharoahNerd, video editing, web development, motion graphics, UI/UX design">
     <meta name="author" content="Tico Almeida Lee">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://ticoalmeidalee.github.io/">
+    <link rel="canonical" href="https://ticoalmeidalee.com/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ticoalmeidalee.github.io/">
+    <meta property="og:url" content="https://ticoalmeidalee.com/">
     <meta property="og:title" content="Tico Almeida Lee - Video Editor | Web Developer | AI Specialist">
     <meta property="og:description" content="Media Arts student specializing in video editing, web development, and AI solutions. Creating digital magic through code and creativity.">
-    <meta property="og:image" content="https://ticoalmeidalee.github.io/og-image.jpg">
+    <meta property="og:image" content="https://ticoalmeidalee.com/og-image.jpg">
     <meta property="og:locale" content="en_US">
-    
+
+    <!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tico Almeida Lee - Video Editor | Web Developer | AI Specialist">
     <meta name="twitter:description" content="Media Arts student specializing in video editing, web development, and AI solutions. Creating digital magic through code and creativity.">
-    <meta name="twitter:image" content="https://ticoalmeidalee.github.io/og-image.jpg">
+    <meta name="twitter:image" content="https://ticoalmeidalee.com/og-image.jpg">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -864,7 +866,7 @@
         "email": "ticoalmeidalee@gmail.com",
         "telephone": "+1-604-300-1863",
         "knowsAbout": ["Video Editing", "Web Development", "AI Integration", "UI/UX Design", "Content Creation", "Motion Graphics"],
-        "url": "https://ticoalmeidalee.github.io/"
+        "url": "https://ticoalmeidalee.com"
     }
     </script>
 </head>
@@ -1081,7 +1083,7 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <div class="contact-item-icon">📧</div>
-                    <p><strong>Email</strong><br><span class="selectable"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9bda0aaa6a8a5a4aca0ada8a5acac89aea4a8a0a5e7aaa6a4">[email&#160;protected]</a></span></p>
+                    <p><strong>Email</strong><br><span class="selectable">ticoalmeidalee@gmail.com</span></p>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-icon">📞</div>
@@ -1099,12 +1101,12 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="https://ticoalmeidalee.github.io/" target="_blank" rel="noopener noreferrer">https://ticoalmeidalee.github.io/</a>
+            <a href="https://ticoalmeidalee.ca" target="_blank" rel="noopener noreferrer">ticoalmeidalee.ca</a>
         </div>
         <p>&copy; 2025 Tico Almeida Lee. All rights reserved.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Animated scroll to position
         function easeInOutCubic(t) {
             return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -1215,3 +1217,14 @@
                     document.querySelectorAll('nav a').forEach(link => {
                         link.style.color = '';
                         if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.style.color = 'var(--accent)';
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+    </script>
+</body>
+</html>
